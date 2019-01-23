@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://dubbo.apache.org/schema/dubbo 
+        http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- dubbo 消费者 -->
+    <dubbo:application name="dubbo-consumer"  />  
+    <!-- check=false  关闭注册中心启动时检查 -->
+    <dubbo:registry address="zookeeper://106.13.37.85:2181" />
+    <dubbo:protocol name="dubbo" port="20880" />
+    <!-- 默认值 check=true 启动时检查服务端是否可用   -->
+    <!-- 关闭所有服务的启动时检查  <dubbo:consumer check="false" /> -->
+    <!-- 
+    	dubbo 服务降级 
+    	mock="return null" check="false"
+    	必须有注册中心才能用, 不然GG
+     -->
+    <dubbo:reference id="indexService" interface="com.nimo.api.IndexService" /> 
+     
+    <!-- 服务直连  -->
+    <!-- 
+    <dubbo:reference id="indexService" mock="return null" check="false" interface="com.nimo.service.IndexService" url="dubbo://192.168.2.180:20880"/>     
+ 	-->
+</beans>
