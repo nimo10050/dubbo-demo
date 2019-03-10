@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
     xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://dubbo.apache.org/schema/dubbo 
-        http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+        http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
     
-    <bean id="indexService" class="com.nimo.service.IndexServiceImpl">   
-    </bean>
+    <context:component-scan base-package="com.nimo.service"></context:component-scan>
     
     <!-- dubbo 服务端 -->
     <dubbo:application name="dubbo-provider"  />  
@@ -22,6 +24,10 @@
     <!-- <dubbo:registry address="N/A" /> -->
    
     <dubbo:protocol name="dubbo" port="20880" />  
-    <dubbo:service interface="com.nimo.api.IndexService" ref="indexService" />  
+    <dubbo:service interface="com.nimo.api.IndexService" ref="indexService" /> 
+    <dubbo:service interface="com.nimo.api.UserService" ref="userService">
+    	<!-- 这个配置只是实现了 将配置作用在方法级别上, 并不是只将方法暴漏了出来 -->
+    	<dubbo:method name="findAllUser"></dubbo:method>
+    </dubbo:service>  
 
 </beans>

@@ -8,13 +8,17 @@
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <servlet>
-    <description></description>
-    <display-name>AuthorizeServlet</display-name>
-    <servlet-name>AuthorizeServlet</servlet-name>
-    <servlet-class>com.nimo.AuthorizeServlet</servlet-class>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:applicationContext.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
+
   <servlet-mapping>
-    <servlet-name>AuthorizeServlet</servlet-name>
-    <url-pattern>/AuthorizeServlet</url-pattern>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
 </web-app>
